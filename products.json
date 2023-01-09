@@ -1,0 +1,78 @@
+[
+    {
+        "name": "Big Mac",
+        "price": 268
+    },
+    {
+        "name": "Quarter Pounder with Cheese",
+        "price": 215
+    },
+    {
+        "name": "Whopper",
+        "price": 320
+    },
+    {
+        "name": "Fried Chicken Sandwich",
+        "price": 241
+    },
+    {
+        "name": "Mozzarella Sticks",
+        "price": 159
+    },
+    {
+        "name": "Double Cheeseburger",
+        "price": 133
+    },
+    {
+        "name": "Nuggets",
+        "price": 293
+    },
+    {
+        "name": "Soft Serve Ice Cream",
+        "price": 106
+    },
+    {
+        "name": "Crispy Chicken Wrap",
+        "price": 186
+    },
+    {
+        "name": "Fries",
+        "price": 106
+    },
+    {
+        "name": "Onion Rings",
+        "price": 133
+    },
+    {
+        "name": "Cheeseburger",
+        "price": 106
+    },
+    {
+        "name": "Chicken Tenders",
+        "price": 321
+    },
+    {
+        "name": "Fish Sandwich",
+        "price": 186
+    },
+    {
+        "name": "Shake",
+        "price": 159
+    },
+    {
+        "name": "Soft Drink",
+        "price": 106
+    },
+    {
+        "name": "Hot Dog",
+        "price": 79
+    },
+    {
+        "name": "Grilled Cheese Sandwich",
+        "price": 133
+    },
+    {
+        "name": "BLT Sandwich",
+        "price": 186
+    }
+]
