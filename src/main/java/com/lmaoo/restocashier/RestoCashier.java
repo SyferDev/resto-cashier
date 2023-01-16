@@ -4,6 +4,8 @@
  */
 package com.lmaoo.restocashier;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -23,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 
 public class RestoCashier extends JFrame {
@@ -81,7 +85,7 @@ public class RestoCashier extends JFrame {
     }
     
     final void generateOrderButton() {
-        btnOrder = new RoundedButton("Pay");
+        btnOrder = new JButton("Pay");
         
         pnlOrder.add(btnOrder);
         // TODO open new window with order
@@ -105,7 +109,7 @@ public class RestoCashier extends JFrame {
         loadProducts();
     }
     
-    // Author: 
+    // Author: kyle
     final void generateOrderList() {
         pnlOrder = new JPanel();
         
@@ -207,8 +211,16 @@ public class RestoCashier extends JFrame {
     }
     
     public static void main(String[] args) {
-         EventQueue.invokeLater(() -> {
-            new RestoCashier().setVisible(true);
-         });
+        FlatLightLaf.setup();
+        
+        try {
+            UIManager.setLookAndFeel( new FlatLightLaf() );
+        } catch( UnsupportedLookAndFeelException ex ) {
+            System.err.println( "Failed to initialize LaF" );
+        }
+        
+        EventQueue.invokeLater(() -> {
+           new RestoCashier().setVisible(true);
+        });
     }
 }
