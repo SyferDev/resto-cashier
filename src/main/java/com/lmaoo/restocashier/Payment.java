@@ -16,10 +16,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Payment extends javax.swing.JFrame {
     
-    private Order order;
+    private final Order order;
     
     /**
      * Creates new form Payment
+     * @param order 
      */
     public Payment(Order order) {
         this.order = order;
@@ -175,21 +176,34 @@ public class Payment extends javax.swing.JFrame {
         rec.Receipt();
         rec.setVisible(true);
         rec.lblDate.setText(f.format(LocalDateTime.now()));
-        rec.b.setText(rec.b.getText() + "            Item" + "\t\t" + "Quantity" + "\t" + "Price" + "\t\n");
-        rec.b.setText(rec.b.getText() + "=======================================================\n");
+        var m = (DefaultTableModel)rec.tblReceipt.getModel();
+               
         for (var p : order.products) {
-            String pName = p.getName();
-            String qty = Integer.toString(p.getQuantity());
-            String price = Double.toString(p.getPrice());
-            rec.b.setText(rec.b.getText() + "    " + pName + "    \t" + qty + "\t" + price + "\n");
+            m.addRow(new Object[] {
+                p.getName(),
+                p.getQuantity(),
+                p.getTotalAmount(),
+            });
         }
-        rec.b.setText(rec.b.getText() + "=======================================================\n\n");
-        rec.b.setText(rec.b.getText() + "\t\tTotal Amount: " + order.getTotal() + "\n");
-        rec.b.setText(rec.b.getText() + "\t\tAmount Payed: " + txtPay.getText() + "\n");
         
+        rec.lblTotal.setText("Total amount: PHP " + order.getTotal());
+        rec.lblPaid.setText("Amount paid: PHP " + amountPayed);
         var change = amountPayed - order.getTotal();
-        rec.b.setText(rec.b.getText() + "\t\tChange: " + change + "\n");
+        rec.lblChange.setText("Change: PHP " + change);
         
+        
+//        rec.b.setText(rec.b.getText() + "            Item" + "\t\t" + "Quantity" + "\t" + "Price" + "\t\n");
+//        rec.b.setText(rec.b.getText() + "=======================================================\n");
+//        for (var p : order.products) {
+//            String pName = p.getName();
+//            String qty = Integer.toString(p.getQuantity());
+//            String price = Double.toString(p.getPrice());
+//            rec.b.setText(rec.b.getText() + "    " + pName + "    \t" + qty + "\t" + price + "\n");
+//        }
+//        rec.b.setText(rec.b.getText() + "=======================================================\n\n");
+//        rec.b.setText(rec.b.getText() + "\t\tTotal Amount: " + order.getTotal() + "\n");
+//        rec.b.setText(rec.b.getText() + "\t\tAmount Payed: " + txtPay.getText() + "\n");
+//      
         dispose();
     }//GEN-LAST:event_btnPayActionPerformed
 //

@@ -12,11 +12,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,48 +55,6 @@ public class RestoCashier extends JFrame {
         updateTotalAmount();
  
         btnOrder.setText("Order");
-         
-//        GroupLayout layout = new GroupLayout(getContentPane());
-//        getContentPane().setLayout(layout);
-//        layout.setHorizontalGroup(
-//            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-//            .addGroup(layout.createSequentialGroup()
-//                .addContainerGap()
-//                .addComponent(pnlProducts, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
-//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-//                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                    .addComponent(pnlOrder, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-//                    .addComponent(btnOrder, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-//                .addContainerGap())
-//        );
-//        layout.setVerticalGroup(
-//            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-//            .addGroup(layout.createSequentialGroup()
-//                .addContainerGap()
-//                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-//                    .addGroup(layout.createSequentialGroup()
-//                        .addComponent(pnlOrder, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
-//                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-//                        .addComponent(btnOrder, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
-//                    .addComponent(pnlProducts, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-//                .addContainerGap())
-//        );
-//
-//        JPanel pnlRightSide = new JPanel(new GridBagLayout());
-//        var c = new GridBagConstraints();
-//        
-//        c.gridx = 0;
-//        c.gridy = 0;
-//        c.weightx = 1.0;
-//        c.weighty = 1.0;
-//        c.fill = GridBagConstraints.PAGE_START;
-//        pnlRightSide.add(pnlOrder, c);
-//        
-//        c.gridx = 0;
-//        c.gridy = 1;
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        pnlRightSide.add(btnOrder, c);
-        
         
         getContentPane().add(pnlProducts);
         getContentPane().add(pnlOrder, BorderLayout.LINE_END);
@@ -108,12 +64,14 @@ public class RestoCashier extends JFrame {
     
     final void generateOrderButton() {
         btnOrder = new JButton("Pay");
+        btnOrder.setForeground(Color.white);
+        btnOrder.setBackground(Color.decode("#8BC34A"));
+        btnOrder.setFont(new Font("Helvetica Neue", 0, 18));
         
         btnOrder.addActionListener((ActionEvent arg0) -> {
             if (order.getTotal() <= 0) return;
             Payment pay = new Payment(order);
-            pay.setVisible(true);
-                                     
+            pay.setVisible(true);    
         });
     }
     
@@ -122,8 +80,6 @@ public class RestoCashier extends JFrame {
         pnlProducts.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
         
         // Products panel
-        GridLayout layout = new GridLayout(5, 5, 5, 5);
-        pnlProducts.setLayout(layout);
 
         loadProducts();
     }
@@ -188,10 +144,28 @@ public class RestoCashier extends JFrame {
 
     void loadProducts() {
         backend = new POSBackend(); // load data from json file
-         
-         var products = backend.getProducts();
+        var products = backend.getProducts();
+        
+        var a = (int)Math.ceil(Math.sqrt(products.size()));
+        GridLayout layout = new GridLayout(a, a, 5, 5);
+        pnlProducts.setLayout(layout);
+        
          for (var product : products) {            
             JButton productBtn = new JButton(product.getName().trim());
+            productBtn.setForeground(Color.white);
+            productBtn.setBorder(new EmptyBorder(0,0,0,0));
+            
+            switch (product.getCategory()) {
+                case MEAL:
+                    productBtn.setBackground(Color.decode("#2196F3"));
+                    break;
+                case DRINK:
+                    productBtn.setBackground(Color.decode("#FFC107"));
+                    break;
+                case DESSERT:
+                    productBtn.setBackground(Color.decode("#009688"));
+                    break;
+            }
             productBtn.addActionListener(e -> addToOrder(product));
             pnlProducts.add(productBtn);
          }

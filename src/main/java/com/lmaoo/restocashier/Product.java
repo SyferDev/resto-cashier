@@ -8,13 +8,16 @@ package com.lmaoo.restocashier;
  *
  * @author Seifer
  */
+
 public class Product {
     private String name;
+    private final ProductCategory category;
     private double price;
     private int quantity = 1;
 
-    public Product(String name, double price) {
+    public Product(String name, ProductCategory category, double price) {
         this.name = name;
+        this.category = category;
         this.price = price;
     }
     
@@ -22,6 +25,10 @@ public class Product {
         return name;
     }
 
+    public ProductCategory getCategory() {
+        return category;
+    }
+    
     public double getPrice() {
         return price;
     }
