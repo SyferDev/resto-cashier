@@ -4,17 +4,19 @@
  */
 package com.lmaoo.restocashier;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,11 +24,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class RestoCashier extends JFrame {
@@ -47,48 +49,65 @@ public class RestoCashier extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Resto Cashier");
         setBackground(Color.WHITE);
+        setLocationRelativeTo(null);
         
         generateProductsPanel();
-        generateOrderList();
         generateOrderButton();
+        generateOrderList();
         updateTotalAmount();
  
         btnOrder.setText("Order");
          
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlProducts, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlOrder, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnOrder, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlOrder, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOrder, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
-                    .addComponent(pnlProducts, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+//        GroupLayout layout = new GroupLayout(getContentPane());
+//        getContentPane().setLayout(layout);
+//        layout.setHorizontalGroup(
+//            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//            .addGroup(layout.createSequentialGroup()
+//                .addContainerGap()
+//                .addComponent(pnlProducts, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+//                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+//                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                    .addComponent(pnlOrder, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//                    .addComponent(btnOrder, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+//                .addContainerGap())
+//        );
+//        layout.setVerticalGroup(
+//            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//            .addGroup(layout.createSequentialGroup()
+//                .addContainerGap()
+//                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+//                    .addGroup(layout.createSequentialGroup()
+//                        .addComponent(pnlOrder, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+//                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+//                        .addComponent(btnOrder, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+//                    .addComponent(pnlProducts, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+//                .addContainerGap())
+//        );
+//
+//        JPanel pnlRightSide = new JPanel(new GridBagLayout());
+//        var c = new GridBagConstraints();
+//        
+//        c.gridx = 0;
+//        c.gridy = 0;
+//        c.weightx = 1.0;
+//        c.weighty = 1.0;
+//        c.fill = GridBagConstraints.PAGE_START;
+//        pnlRightSide.add(pnlOrder, c);
+//        
+//        c.gridx = 0;
+//        c.gridy = 1;
+//        c.fill = GridBagConstraints.HORIZONTAL;
+//        pnlRightSide.add(btnOrder, c);
+        
+        
+        getContentPane().add(pnlProducts);
+        getContentPane().add(pnlOrder, BorderLayout.LINE_END);
          
         pack();
     }
     
     final void generateOrderButton() {
         btnOrder = new JButton("Pay");
-        
-        pnlOrder.add(btnOrder);
-        // TODO open new window with order
         
         btnOrder.addActionListener((ActionEvent arg0) -> {
             if (order.getTotal() <= 0) return;
@@ -111,13 +130,13 @@ public class RestoCashier extends JFrame {
     
     // Author: kyle
     final void generateOrderList() {
-        pnlOrder = new JPanel();
-        
-        BoxLayout layout = new BoxLayout(pnlOrder, BoxLayout.Y_AXIS);
-        pnlOrder.setLayout(layout);
-        
+        pnlOrder = new JPanel(new GridBagLayout());
+        pnlOrder.setBorder(new EmptyBorder(10, 0, 10, 10));
+        var c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH;
+       
         //create Table
-        createTable();
+        createTable(c);
         
         //textbox for total
         lblTotalAmount = new JLabel();
@@ -137,13 +156,21 @@ public class RestoCashier extends JFrame {
         JScrollPane sp2 = new JScrollPane(btnDeleteRow);
         sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
-        pnlOrder.add(sp);
-        pnlOrder.add(sp1);
-        pnlOrder.add(sp2);
+        c.gridy = 2;
+        pnlOrder.add(sp, c);
+        c.gridy = 3;
+        pnlOrder.add(sp1, c);
+        c.gridy = 4;
+        pnlOrder.add(sp2, c);
+        
+        c.gridy = 6;
+        c.ipady = 50;
+        c.gridheight = 2;
+        pnlOrder.add(btnOrder, c);
         
     }
     
-    public void createTable()
+    public void createTable(GridBagConstraints c)
     {
         String[] columnNames = { "Product Name", "Qty", "Price", "Total Amount" };
         model = new DefaultTableModel(columnNames, 0);
@@ -152,7 +179,11 @@ public class RestoCashier extends JFrame {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //adding it to JScrollPane
         JScrollPane sp = new JScrollPane(table);
-        pnlOrder.add(sp);
+        
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weighty = 2;
+        pnlOrder.add(sp, c);
     }
 
     void loadProducts() {
@@ -166,10 +197,10 @@ public class RestoCashier extends JFrame {
          }
     }
     
+    /*
+    * Author: kyle chester
+    */
     void addToOrder(Product product) {
-        /*
-        * Author: kyle chester
-        */
         // (JSA) refactored cuz why not (70+ lines to less than 20)
         // (JSA) insane java filter LINQ style type beat LMAO wtf is this i miss javascript
         if (order.products.stream().filter(p -> p.getName().equals(product.getName())).findFirst().isPresent()) 
@@ -196,7 +227,7 @@ public class RestoCashier extends JFrame {
         updateTotalAmount();
     }
     
-    void updateTotalAmount() {
+    final void updateTotalAmount() {
         totalAmount = 0;
         model.setRowCount(0); // clear the table
         for (int i = 0; i < order.products.size(); i++) {
