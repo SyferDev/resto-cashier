@@ -1,0 +1,102 @@
+[
+    {
+      "name": "Chickenjoy",
+      "category": "MEAL",
+      "price": 79
+    },
+    {
+      "name": "Big Mac",
+      "category": "MEAL",
+      "price": 140
+    },
+    {
+      "name": "KFC Fried Chicken",
+      "category": "MEAL",
+      "price": 169
+    },
+    {
+      "name": "Shackburger",
+      "category": "MEAL",
+      "price": 225
+    },
+    {
+      "name": "Whopper",
+      "category": "MEAL",
+      "price": 169
+    },
+    {
+      "name": "Baconator",
+      "category": "MEAL",
+      "price": 199
+    },
+    {
+      "name": "Blizzard",
+      "category": "DESSERT",
+      "price": 95
+    },
+    {
+      "name": "6\" Turkey Breast Sub",
+      "category": "MEAL",
+      "price": 165
+    },
+    {
+      "name": "Original Blend Coffee",
+      "category": "DRINK",
+      "price": 70
+    },
+    {
+      "name": "Pizza Pepperoni",
+      "category": "MEAL",
+      "price": 315
+    },
+    {
+      "name": "Bacon Burger",
+      "category": "MEAL",
+      "price": 375
+    },
+    {
+      "name": "Original Legendary Burger",
+      "category": "MEAL",
+      "price": 495
+    },
+    {
+      "name": "Mocha Frappuccino",
+      "category": "DRINK",
+      "price": 170
+    },
+    {
+      "name": "Spicy Chicken",
+      "category": "MEAL",
+      "price": 189
+    },
+    {
+      "name": "Classic Buttery Jack",
+      "category": "MEAL",
+      "price": 225
+    },
+    {
+      "name": "Six Dollar Burger",
+      "category": "MEAL",
+      "price": 249
+    },
+    {
+      "name": "Roast Beef Sandwich",
+      "category": "MEAL",
+      "price": 149
+    },
+    {
+      "name": "Bacon Cheeseburger",
+      "category": "MEAL",
+      "price": 449
+    },
+    {
+      "name": "Sliders",
+      "category": "MEAL",
+      "price": 99
+    },
+    {
+      "name": "Double-Double",
+      "category": "MEAL",
+      "price": 349
+    }
+  ]

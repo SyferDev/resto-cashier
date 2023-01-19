@@ -4,6 +4,12 @@
  */
 package com.lmaoo.restocashier;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,20 +17,20 @@ import java.util.Collections;
  * @author Seifer
  */
 public class POSBackend {
-    private final ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<>();
     
     // THIS DOESNT WORK!!!! JAVA WONT LET ME READ MY PACKAGED JSON FILES WHEN BUILT
 //    public POSBackend() {
-//        try (InputStream stream = getClass().getClassLoader().getResourceAsStream("/main/resources/products.json")) {
-//            var rdr = new InputStreamReader(stream);
+//        try (Reader reader = Files.newBufferedReader(Paths.get("products.json"))) {
+////            var rdr = new InputStreamReader(stream);
 //            Type type = new TypeToken<ArrayList<Product>>(){}.getType();
 //            Gson g = new Gson();
-//            products = g.fromJson(rdr, type);
-//        } catch (IOException e) {
+//            products = g.fromJson(reader, type);
+//        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 //    }
-    
+//    
     public POSBackend() {
         // hard code because java sucks balls
         products.add(new Product("Chickenjoy", ProductCategory.MEAL, 79));

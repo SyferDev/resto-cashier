@@ -47,7 +47,6 @@ public class RestoCashier extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Resto Cashier");
         setBackground(Color.WHITE);
-        setLocationRelativeTo(null);
         
         generateProductsPanel();
         generateOrderButton();
@@ -60,6 +59,7 @@ public class RestoCashier extends JFrame {
         getContentPane().add(pnlOrder, BorderLayout.LINE_END);
          
         pack();
+        setLocationRelativeTo(null);
     }
     
     final void generateOrderButton() {
@@ -97,8 +97,10 @@ public class RestoCashier extends JFrame {
         //textbox for total
         lblTotalAmount = new JLabel();
         lblTotalAmount.setText("Total Amount");
-        lblTotalAmount.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTotalAmount.setFont(new Font("Sans Serif", 0, 18));
+        lblTotalAmount.setHorizontalAlignment(SwingConstants.TRAILING);
         JScrollPane sp = new JScrollPane(lblTotalAmount);
+        sp.setBorder(new EmptyBorder(0,0,0,0));
         
         txtTotalAmount = new JTextField();
         txtTotalAmount.setEditable(false);
